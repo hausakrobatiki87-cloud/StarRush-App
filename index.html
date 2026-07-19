@@ -3,11 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>StarRush App</title>
-    <!-- Подключаем скрипт Adsgram -->
-    <script src="https://sad.adsgram.ai/js/adsgram.js"></script>
+    <!-- Подключаем SDK Adsgram -->
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        button { padding: 15px 30px; font-size: 20px; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <h1>Добро пожаловать в StarRush!</h1>
-    <p>Скоро здесь будет реклама и звезды.</p>
+
+    <button id="ad-button">Получить Звезды!</button>
+
+    <script>
+        // Инициализируем контроллер с твоим UnitID
+        const adController = window.Adsgram.init({ blockId: "38927" });
+        
+        const btn = document.getElementById("ad-button");
+
+        btn.addEventListener("click", () => {
+            adController.show().then((result) => {
+                // Пользователь посмотрел рекламу
+                alert("Реклама просмотрена! Звезды начислены.");
+                console.log("Ad watched:", result);
+            }).catch((error) => {
+                // Что-то пошло не так (например, нет рекламы или пользователь закрыл её)
+                console.error("Ad error:", error);
+            });
+        });
+    </script>
 </body>
 </html>
